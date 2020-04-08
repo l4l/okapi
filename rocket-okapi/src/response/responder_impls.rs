@@ -78,6 +78,12 @@ impl<'r, T: OpenApiResponder<'r>> OpenApiResponder<'r> for Option<T> {
     }
 }
 
+impl OpenApiResponder<'_> for rocket::http::Status {
+    fn responses(_: &mut OpenApiGenerator) -> Result {
+        Ok(Responses::default())
+    }
+}
+
 macro_rules! status_responder {
     ($responder: ident, $status: literal) => {
         impl<'r, T: OpenApiResponder<'r>> OpenApiResponder<'r>
